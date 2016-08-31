@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+
+	<!-- 将dao注入service start -->
+	<bean id="commonService" class="com.darg.opo.service.CommonServer"
+		scope="prototype">
+		<!-- 网络热点dao -->
+		<property name="tTopKeyWordDAO" ref="TTopKeyWordDAO"></property>		
+		<!-- 敏感关键词dao -->
+		<property name="tSentimentKeywordDAO" ref="TPublicSentimentKeywordDAO"></property>
+		<!-- 组合关键词dao -->
+		<property name="tSentimentHeadDAO" ref="TPublicSentimentHeadDAO"></property>
+		<!-- 定位地址dao -->
+		<property name="tNetAddrDAO" ref="TNetAddrDAO"></property>
+		<!-- 最新关键词dao -->
+		<property name="tSentimentRecentDAO" ref="TPublicSentimentRecentDAO"></property>
+		<!-- 最新消息dao -->
+		<property name="tSentimentRresultDAO" ref="TPublicSentimentRresultDAO"></property>
+		<!-- 360网络热点dao -->
+		<property name="t360topKeyWordDAO" ref="T360topKeyWordDAO"></property>
+		<!-- 定位预警结果dao -->
+		<property name="tNetResultDAO" ref="TNetResultDAO"></property>
+		<!-- 当日预警结果dao -->
+		<property name="todayWarnDAO" ref="TPublicSentimentResultDAO"></property>
+		<!-- 往日预警结果dao -->
+		<property name="oldWarnDAO" ref="TPublicSentimentHresultDAO"></property>
+		<!-- 百度新闻搜索dao -->
+		<property name="tBaiduNewsSerchDAO" ref="TBaiduNewsSerchDAO"></property>
+		<!-- 舆情热词dao -->
+		<property name="tOpoHotWordDAO" ref="TAddrTempDAO"></property>
+		
+	</bean>
+	<!-- 将dao注入service end -->
+
+</beans>

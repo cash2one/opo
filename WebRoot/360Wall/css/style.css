@@ -1,0 +1,336 @@
+html,body {
+    height:100%;
+    margin:0
+}
+body {
+    font:12px "\5fae\8f6f\96c5\9ed1";
+    color:#333;
+    background:#f5f2ef
+}
+/*form,p,ul,li {*/
+    /*margin:0;*/
+    /*padding:0*/
+/*}*/
+/*ul {*/
+    /*list-style:none*/
+/*}*/
+/*a {*/
+    /*color:#333;*/
+    /*text-decoration:none*/
+/*}*/
+/*img {*/
+    /*border:0*/
+/*}*/
+/*#wrapper {*/
+    /*min-height:100%;*/
+    /*_height:100%;*/
+    /*margin:0 auto -95px*/
+/*}*/
+/*/!*#header {*!/*/
+    /*/!*height:43px;*!/*/
+    /*/!*border-bottom:1px solid #d1cbc5*!/*/
+/*/!*}*!/*/
+/*#content {*/
+    /*border-top:1px solid #fafafa*/
+/*}*/
+/*/!*#footer {*!/*/
+    /*/!*width:100%;*!/*/
+    /*/!*height:95px;*!/*/
+    /*/!*background:url(http://p7.qhimg.com/d/inn/1ec0b8c1/bgs.png) repeat-x*!/*/
+/*/!*}*!/*/
+/*.push {*/
+    /*height:95px*/
+/*}*/
+/*.clearfix {*/
+    /*zoom:1*/
+/*}*/
+/*.clearfix:after {*/
+    /*clear:both;*/
+    /*content:"";*/
+    /*display:block*/
+/*}*/
+/*.gray a {*/
+    /*color:#666*/
+/*}*/
+/*.logo {*/
+    /*width:170px;*/
+    /*height:27px;*/
+    /*background:url(http://p7.qhimg.com/d/inn/1ec0b8c1/bgs.png) 0 -105px;*/
+    /*margin:8px 30px 0 19px;*/
+    /*float:left*/
+/*}*/
+/*.nav {*/
+    /*width:385px;*/
+    /*float:right*/
+/*}*/
+/*.nav ul {*/
+    /*float:left;*/
+    /*margin-top:16px*/
+/*}*/
+/*.nav li {*/
+    /*float:left;*/
+    /*margin-right:10px;*/
+    /*line-height:18px;*/
+    /*font-family:'\5b8b\4f53';*/
+    /*text-shadow:#fff 1px 0 0,#fff 0 1px 0*/
+/*}*/
+/*.nav li a:hover {*/
+    /*color:#38b100*/
+/*}*/
+/*.search {*/
+    /*width:250px;*/
+    /*white-space:nowrap;*/
+    /*float:right;*/
+    /*margin-top:10px*/
+/*}*/
+/*.search .ipt {*/
+    /*width:150px;*/
+    /*height:18px;*/
+    /*line-height:18px;*/
+    /*font:13px arial;*/
+    /*padding:2px;*/
+    /*margin-right:5px;*/
+    /*border:2px solid #3eaf0e;*/
+    /*outline:0;*/
+    /*vertical-align:middle*/
+/*}*/
+/*.search .btn {*/
+    /*width:70px;*/
+    /*height:26px;*/
+    /*line-height:26px;*/
+    /*border:0;*/
+    /*color:#fff;*/
+    /*background:#3fb30e;*/
+    /*font-weight:bold;*/
+    /*font:bold 14px arial;*/
+    /**padding:3px 0 0;*/
+    /*cursor:pointer;*/
+    /*vertical-align:middle*/
+/*}*/
+/*.container {*/
+    /*position:relative;*/
+    /*padding:10px 100px 10px 20px;*/
+    /*overflow:hidden*/
+/*}*/
+/*.channel {*/
+    /*width:60px;*/
+    /*height:400px;*/
+    /*background:#e7e4e1;*/
+    /*position:absolute;*/
+    /*top:-1px;*/
+    /*right:0*/
+/*}*/
+/*.channel li {*/
+    /*height:34px;*/
+    /*line-height:34px;*/
+    /*font-size:14px;*/
+    /*font-family:arial;*/
+    /*text-align:center;*/
+    /*border-top:1px solid #f2f2f2;*/
+    /*border-bottom:1px solid #d1cbc5;*/
+    /*text-shadow:#f3f2f0 1px 0 0,#f3f2f0 0 1px 0*/
+/*}*/
+/*.channel li.last {*/
+    /*border-bottom:0*/
+/*}*/
+/*.channel a {*/
+    /*width:100%;*/
+    /*height:100%;*/
+    /*display:block*/
+/*}*/
+/*.channel a:hover,.channel li.active,.channel li.active a {*/
+    /*color:#38b100;*/
+    /*background:url(http://p7.qhimg.com/d/inn/1ec0b8c1/bgs.png) no-repeat -181px -100px*/
+/*}*/
+.refresh_btn {
+    position:absolute;
+    right:0px;
+    top:260px
+}
+.refresh_btn a {
+    width:34px;
+    height:35px;
+    display:block;
+    background:url(http://p7.qhimg.com/d/inn/1ec0b8c1/bgs.png) -87px -142px
+}
+.refresh_btn a:hover {
+    background-position:-126px -142px
+}
+#hotword {
+    height:100%;
+    position:relative
+}
+#hotword .box {
+    color:#fff;
+    background:#ccc;
+    text-align:center;
+    overflow:hidden;
+    position:absolute;
+    -webkit-transform:translatez(0);
+    -webkit-transition-property:left,top;
+    -moz-transition-property:left,top;
+    -ms-transition-property:left,top;
+    -o-transition-property:left,top;
+    transition-property:left,top;
+    -moz-transition-duration:.8s;
+    -webkit-transition-duration:.8s;
+    -ms-transition-duration:.8s;
+    -o-transition-duration:.8s;
+    transition-duration:.8s;
+    -moz-animation-duration:.8s;
+    -webkit-animation-duration:.8s;
+    -ms-animation-duration:.8s;
+    -o-animation-duration:.8s;
+    animation-duration:.8s;
+    -moz-animation-fill-mode:forwards;
+    -webkit-animation-fill-mode:forwards;
+    -ms-animation-fill-mode:forwards;
+    -o-animation-fill-mode:forwards;
+    animation-fill-mode:forwards
+}
+#hotword .box img {
+    width:100%;
+    height:100%
+}
+#hotword .box a {
+    width:100%;
+    height:100%;
+    display:block;
+    color:#fff;
+    text-decoration:none;
+    overflow:hidden
+}
+#hotword .box .main_title {
+    display:inline-block;
+    padding:0 10px;
+    cursor:pointer
+}
+#hotword .box .sub_title {
+    color:#ccc
+}
+#hotword .box div {
+    width:100%;
+    height:100%;
+    display:none;
+    position:absolute;
+    left:0;
+    bottom:0;
+    background:rgba(0,0,0,.8);
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#cc000000,endColorstr=#cc000000)\9
+}
+#hotword .box div p {
+    font-size:14px;
+    font-weight:normal;
+    line-height:18px;
+    text-align:left;
+    padding:0 8px;
+    cursor:pointer
+}
+#hotword .box p strong {
+    display:block;
+    padding-bottom:5px
+}
+#hotword .box .tp_11 {
+    font-size:20px;
+    line-height:24px
+}
+#hotword .box .tp_12 {
+    font-size:20px;
+    line-height:44px
+}
+#hotword .box .tp_21 {
+    font-size:20px;
+    line-height:44px
+}
+#hotword .box .tp_22 {
+    font-size:25px;
+    line-height:65px
+}
+/*.date_wrap {*/
+    /*width:625px;*/
+    /*margin:0 auto;*/
+    /*padding-top:30px*/
+/*}*/
+/*.date_pre,.date_nxt {*/
+    /*width:17px;*/
+    /*height:34px;*/
+    /*overflow:hidden;*/
+    /*background:url(http://p7.qhimg.com/d/inn/1ec0b8c1/bgs.png) 0 -142px;*/
+    /*float:left;*/
+    /*display:none*/
+/*}*/
+/*.date_nxt {*/
+    /*background-position:-22px -142px;*/
+    /*float:right*/
+/*}*/
+/*.date_pre:hover {*/
+    /*background-position:-44px -142px*/
+/*}*/
+/*.date_nxt:hover {*/
+    /*background-position:-66px -142px*/
+/*}*/
+/*.date_holder {*/
+    /*width:555px;*/
+    /*height:42px;*/
+    /*overflow:hidden;*/
+    /*float:left;*/
+    /*margin-left:18px;*/
+    /*position:relative*/
+/*}*/
+/*.date_line {*/
+    /*width:555px;*/
+    /*height:2px;*/
+    /*background:url(http://p0.qhimg.com/d/inn/c6ec750b/line.png) no-repeat;*/
+    /*_background:0;*/
+    /*filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true,sizingMethod=image,src="http://p0.qhimg.com/d/inn/c6ec750b/line.png");*/
+    /*position:absolute;*/
+    /*left:0;*/
+    /*top:16px;*/
+    /*z-index:0*/
+/*}*/
+/*.date_holder ul {*/
+    /*width:475px;*/
+    /*margin:0 auto;*/
+    /*position:relative;*/
+    /*z-index:1*/
+/*}*/
+/*.date_holder ul.less {*/
+    /*width:380px*/
+/*}*/
+/*.date_holder li {*/
+    /*width:95px;*/
+    /*text-align:center;*/
+    /*float:left;*/
+    /*text-shadow:#f3dfc0 1px 0 0,#f3dfc0 0 1px 0*/
+/*}*/
+/*.date_holder li a {*/
+    /*width:45px;*/
+    /*height:42px;*/
+    /*display:block;*/
+    /*margin:0 auto;*/
+    /*padding-top:26px;*/
+    /*color:#a07033;*/
+    /*background:url(http://p7.qhimg.com/d/inn/1ec0b8c1/bgs.png) no-repeat -194px -142px*/
+/*}*/
+/*.date_holder li.active a,.date_holder li a:hover {*/
+    /*color:#3d9613;*/
+    /*background-position:-251px -142px*/
+/*}*/
+/*#loading {*/
+    /*position:absolute;*/
+    /*left:50%;*/
+    /*top:50%;*/
+    /*padding-top:38px;*/
+    /*color:#938f8f;*/
+    /*margin:-50px 0 0 -50px;*/
+    /*background:url('http://p0.qhimg.com/t0133274a1663da8506.gif') no-repeat 50% 0*/
+/*}*/
+/*.footer_inner {*/
+    /*width:725px;*/
+    /*margin:0 auto*/
+/*}*/
+/*.footer_inner .jiathis{*/
+    /*width:80px;*/
+    /*float:right;*/
+    /*margin-top:18px*/
+/*}*/

@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:task="http://www.springframework.org/schema/task" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/tx 
+	http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+	http://www.springframework.org/schema/aop 
+	http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+    http://www.springframework.org/schema/task
+    http://www.springframework.org/schema/task/spring-task-3.0.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+	<!-- <import resource="applicationContext-security.xml" /> -->
+	<!-- 定义受环境影响易变的变量 -->
+	<bean
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />
+		<property name="ignoreResourceNotFound" value="true" />
+		<property name="locations">
+			<list>
+				<!-- 标准配置 -->
+				<value>classpath*:/application.properties</value>
+			</list>
+		</property>
+	</bean>
+
+	<!-- 数据源配置,使用应用内的DBCP数据库连接池 -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<!-- Connection Info -->
+		<property name="driverClassName" value="${jdbc.driver}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+
+		<!-- Connection Pooling Info -->
+		<property name="maxIdle" value="${dbcp.maxIdle}" />
+		<property name="maxActive" value="${dbcp.maxActive}" />
+		<property name="defaultAutoCommit" value="true" />
+		<property name="timeBetweenEvictionRunsMillis" value="3600000" />
+		<property name="minEvictableIdleTimeMillis" value="3600000" />
+	</bean>
+
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">
+					org.hibernate.dialect.MySQLDialect
+				</prop>
+				<prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+				<prop key="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</prop>
+				<prop key="hibernate.cache.provider_configuration_file_resource_path">ehcache/ehcache-hibernate-local.xml</prop>
+			</props>
+		</property>
+
+		<property name="mappingResources">
+			<list>
+				<value>com/darg/opo/pojo/TAddrTemp.hbm.xml</value>
+				<value>com/darg/opo/pojo/TMolestKeyFormat.hbm.xml</value>
+				<value>com/darg/opo/pojo/TNetAddr.hbm.xml</value>
+				<value>com/darg/opo/pojo/TNetResult.hbm.xml</value>
+				<value>com/darg/opo/pojo/TPublicSentimentHead.hbm.xml
+				</value>
+				<value>com/darg/opo/pojo/TPublicSentimentHresult.hbm.xml
+				</value>
+				<value>com/darg/opo/pojo/TPublicSentimentKeyword.hbm.xml
+				</value>
+				<value>com/darg/opo/pojo/TPublicSentimentRecent.hbm.xml
+				</value>
+				<value>com/darg/opo/pojo/TPublicSentimentResult.hbm.xml
+				</value>
+				<value>com/darg/opo/pojo/TPublicSentimentRresult.hbm.xml
+				</value>
+				<value>com/darg/opo/pojo/TTopKeyWord.hbm.xml</value>
+				<value>com/darg/opo/pojo/T360topKeyWord.hbm.xml</value>
+				<value>com/darg/opo/pojo/TBaiduNewsSerch.hbm.xml</value>
+			</list>
+
+		</property>
+
+	</bean>
+
+	<!-- 事务配置strar -->
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<!-- HibernateTransactionManager bean需要依赖注入一个SessionFactory bean的引用 -->
+		<property name="sessionFactory" ref="sessionFactory">
+		</property>
+	</bean>
+
+	<tx:advice id="SOAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="tranSave*" propagation="REQUIRED" />
+			<tx:method name="tranModify*" propagation="REQUIRED" />
+			<tx:method name="tranDelete*" propagation="REQUIRED" />
+		</tx:attributes>
+	</tx:advice>
+	<aop:config>
+
+		<aop:pointcut id="backPointcut"
+			expression="execution(* com.darg.zcgs.service..*.*(..))" />
+		<aop:advisor advice-ref="SOAdvice" pointcut-ref="backPointcut" />
+
+	</aop:config>
+
+
+	<!-- 配置事务拦截器 -->
+	<bean id="transactionInterceptor"
+		class="org.springframework.transaction.interceptor.TransactionInterceptor">
+		<!-- 事务拦截器bean需要依赖注入一个事务管理器 -->
+		<property name="transactionManager" ref="transactionManager" />
+		<property name="transactionAttributes">
+			<!-- 下面定义事务传播属性 -->
+			<props>
+				<prop key="delete*">PROPAGATION_REQUIRED</prop>
+				<prop key="*">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+	</bean>
+	<!-- 定义BenaNameAutoProxyCreator,该bean无需被引用，因此没有id属性,这个bean根据事务拦截器为目标bean自动创建事务代理 -->
+	<bean
+		class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
+		<!-- 指定对满足哪些bean name的bean自动生成业务代理 -->
+		<property name="beanNames">
+			<!-- 下面是所有需要自动创建事务代理的bean -->
+			<list>
+				<value>xsService</value>
+				<value>kcService</value>
+				<value>cjService</value>
+				<value>zyService</value>
+			</list>
+			<!-- 此处可增加其他需要自动创建事务代理的bean -->
+		</property>
+		<!-- 下面定义BeanNameAutoProxyCreator所需的事务拦截器 -->
+		<property name="interceptorNames">
+			<list>
+				<value>transactionInterceptor</value>
+				<!-- 此处可增加其他新的Interceptor -->
+			</list>
+		</property>
+	</bean>
+
+	<bean id="TPublicSentimentKeywordDAO" class="com.darg.opo.dao.TPublicSentimentKeywordDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="TPublicSentimentHresultDAO" class="com.darg.opo.dao.TPublicSentimentHresultDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="TTopKeyWordDAO" class="com.darg.opo.dao.TTopKeyWordDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="TPublicSentimentRresultDAO" class="com.darg.opo.dao.TPublicSentimentRresultDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="TMolestKeyFormatDAO" class="com.darg.opo.dao.TMolestKeyFormatDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="TPublicSentimentResultDAO" class="com.darg.opo.dao.TPublicSentimentResultDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="TNetResultDAO" class="com.darg.opo.dao.TNetResultDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="TPublicSentimentHeadDAO" class="com.darg.opo.dao.TPublicSentimentHeadDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="TPublicSentimentRecentDAO" class="com.darg.opo.dao.TPublicSentimentRecentDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="TNetAddrDAO" class="com.darg.opo.dao.TNetAddrDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="TAddrTempDAO" class="com.darg.opo.dao.TAddrTempDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="T360topKeyWordDAO" class="com.darg.opo.dao.T360topKeyWordDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="TBaiduNewsSerchDAO" class="com.darg.opo.dao.TBaiduNewsSerchDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+
+
+	<bean id="test" class="com.darg.opo.testAction.Test" scope="prototype">
+		<property name="tAddrTempDAO" ref="TAddrTempDAO"></property>
+	</bean>	
+	<bean id="SpringContextsUtil" class="com.darg.opo.commutil.SpringContextsUtil" lazy-init="false">
+	</bean>
+	<context:component-scan base-package="com.darg.opo.service"></context:component-scan>
+	<!-- <task:scheduled-tasks>
+		<task:scheduled ref="queueTaskService" method="setTransferQueueTask" cron="30 0/1 * * * ? "/>
+		<task:scheduled ref="queueTaskService" method="setDeleteVideoTask" cron="30 0/59 * * * ? "/>
+	</task:scheduled-tasks><task:scheduler id="SOscheduler" pool-size="2" /> -->	<!-- 设定需扫描的任务路径设置需扫描的方法 -->
+	
+	
+	<task:scheduled-tasks scheduler="SOscheduler">
+		<task:scheduled ref="commonService" method="setGrapBaiduTopTask" cron="0 0/120 * * * ? "/><!-- baidu_top50 -->
+		<task:scheduled ref="commonService" method="setGrapBaiduTop_cloundTask" cron="0 0/120 * * * ? "/><!-- baidu_yun -->		
+		<task:scheduled ref="commonService" method="setGrap360HotWallTop_Task" cron="0 0/120 * * * ? "/><!-- 360wall40 -->
+		<task:scheduled ref="commonService" method="setGrapBaiduSerch_Task" cron="0 0/120 * * * ? "/><!-- baidu搜索根据最新关键词 -->
+		<task:scheduled ref="commonService" method="setOldWarnResult_Task" cron="0 0/60 * * * ? "/><!-- 往日预警插入数据 -->
+		<task:scheduled ref="commonService" method="setTodayWarnResult_Task" cron="0 0/60 * * * ? "/><!-- 今日预警插入数据 -->
+		<task:scheduled ref="commonService" method="setNetResult_Task" cron="0 0/60 * * * ? "/><!-- 定网预警插入数据 -->
+		
+	</task:scheduled-tasks>
+	<task:scheduler id="SOscheduler" pool-size="7" />
+	
+		
+	
+</beans>

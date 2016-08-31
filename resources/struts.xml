@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+
+	<package name="default" namespace="/" extends="struts-default">
+	
+		<action name="test" class="test">
+			<result name="success">index.jsp</result>
+		</action>
+	</package>
+	
+	<package name="main" extends="json-default" namespace="/">
+	<!-- 测试 -->
+		<action name="testAction" class="grabAction" method="testAction">
+			<param name="enableGZIP">true</param>
+			<result type="json"></result>
+		</action>
+
+		<!-- rz分界线######################################start -->
+		<!--模糊查询组合关键词 rz -->
+		<action name="serchUnionKeywordListFy" class="opoMangeAction" method="serchUnionKeywordListFy">
+			<param name="enableGZIP">true</param>
+			<result type="json"></result>
+		</action>
+		<!--查询单个组合关键词 rz -->
+		<action name="findUnionKeyword" class="opoMangeAction" method="findUnionKeyword">
+			<param name="enableGZIP">true</param>
+			<result type="json"></result>
+		</action>
+		<!--单个组合关键词修改 rz -->
+		<action name="modify_unionKeyword" class="opoMangeAction" method="modify_unionKeyword">
+			<param name="enableGZIP">true</param>
+			<result type="json"></result>
+		</action>
+		<!--添加保存组合关键词 rz -->
+		<action name="save_unionKeyword" class="opoMangeAction" method="save_unionKeyword">
+			<param name="enableGZIP">true</param>
+			<result type="json"></result>
+		</action>
+		<!-- 删除单个组合关键词 rz -->
+		<action name="delete_unionKeyword" class="opoMangeAction" method="delete_unionKeyword">
+			<param name="enableGZIP">true</param>
+			<result type="json"></result>
+		</action>		
+		<!--百度热点list查询通过当天的时间 rz -->
+		<action name="findBaiduHotByTime" class="opoMangeAction" method="findBaiduHotByTime">
+			<param name="enableGZIP">true</param>
+			<result type="json"></result>
+		</action>
+		<!--网络热点Hot50list查询通过时间 rz -->
+		<action name="findBaiduHot50ByTime" class="opoMangeAction" method="findBaiduHot50ByTime">
+			<param name="enableGZIP">true</param>
+			<result type="json"></result>
+		</action>
+		<!--网络热点Hot搜索排名前面的list查询通过当天一天时间时间 rz -->
+		<action name="findBauduHotG_sizeByTime" class="opoMangeAction" method="findBauduHotG_sizeByTime">
+			<param name="enableGZIP">true</param>
+			<result type="json"></result>
+		</action>
+		<!--360新闻墙网络热点Hot随机20条查询通过当天一天时间时间 rz -->
+		<action name="find360HotG_sizeByTime" class="opoMangeAction" method="find360HotG_sizeByTime">
+			<param name="enableGZIP">true</param>
+			<result type="json"></result>
+		</action>	
+		<!--舆情热词地球  rz -->
+		<action name="findEarthHotWordG_size" class="opoMangeAction" method="findEarthHotWordG_size">
+			<param name="enableGZIP">true</param>
+			<result type="json"></result>
+		</action>			
+		<!--定网预警查询通过时间 rz -->
+		<action name="findNetAddrsWarnG_sizeByTwoTime" class="opoMangeAction" method="findNetAddrsWarnG_sizeByTwoTime">
+			<param name="enableGZIP">true</param>
+			<result type="json"></result>
+		</action>		
+		
+		
+		<!-- rz分界线######################################end -->
+		<!-- ===========zs分界线==========START===================================================================== -->
+		<!-- ====敏感词列表加载================= -->
+		<action name="findKeywordList" class="opoMangeAction"
+		    method="findKeywordList">
+		    <param name="enableGZIP">true</param>
+			<result type="json"></result>
+		</action>
+		<!-- ====敏感词列表删除========================== -->
+		<action name="keyword_Delete" class="opoMangeAction"
+		      method="keyword_Delete">
+		     <param name="enableGZIP">true</param>
+			<result type="json"></result>
+		     
+		</action>
+		<!-- ======单个敏感词列表查看========================= -->
+		<action name="keywordList_look" class="opoMangeAction"
+		      method="keywordList_look">
+		    <param name="enableGZIP">true</param>
+			<result type="json"></result>
+		</action>
+		<!-- ======单个敏感词添加================================= -->
+		<action name="keyword_add" class="opoMangeAction"
+		      method="keyword_add">
+		     <param name="enableGZIP">true</param>
+			<result type="json"></result>
+		</action>
+		<!-- ======单个敏感词修改================================= -->
+		<action name="keyword_modify" class="opoMangeAction"
+		      method="keyword_modify">
+		     <param name="enableGZIP">true</param>
+			<result type="json"></result>
+		</action>
+		<!-- ======单个敏感词模糊查询================================= -->
+		<action name="findVagueKeywords" class="opoMangeAction"
+		      method="findVagueKeywords">
+		      <param name="enableGZIP">true</param>
+			<result type="json"></result>
+		</action>
+		<!-- ======最新消息按照一段日期查询================================= -->
+		<action name="findRResult" class="opoMangeAction"
+		      method="findRResult">
+		      <param name="enableGZIP">true</param>
+			<result type="json"></result>
+		</action>
+		<!-- ======百度新闻搜索最新消息按照一段日期查询================================= -->
+		<action name="findBaiduNewsSerch" class="opoMangeAction"
+		      method="findBaiduNewsSerch">
+		     <param name="enableGZIP">true</param>
+			<result type="json"></result>
+		</action>
+		
+		<!-- ======往日预警按照一段日期查询================================= -->
+		<action name="findHResult" class="opoMangeAction"
+		      method="findHResult">
+		      <param name="success">true</param>
+		        <result type="json"></result>
+		</action>
+		<!-- ======网络热点按照一段日期查询================================= -->
+		<action name="findTopKeyword" class="opoMangeAction"
+		      method="findTopKeyword">
+		     <param name="enableGZIP">true</param>
+			<result type="json"></result>
+		</action>
+<!-- ===========zs分界线==========END===================================================================== -->	
+		<!-- zufei分界线######################################start -->
+		
+		<!--查询最新关键字 zufei -->
+		<action name="findNewkeywords" class="opoMangeAction"
+			method="findNewkeywords">
+			<param name="enableGZIP">true</param>
+			<result type="json">
+			</result>
+		</action>
+		<!--查询单个最新关键字 zufei -->
+		<action name="findSingNewkeywords" class="opoMangeAction"
+			method="findSingNewkeywords">
+			<param name="enableGZIP">true</param>
+			<result type="json">
+			</result>
+		</action>
+		
+		<!--修改单个最新关键字 zufei -->
+		<action name="modifykeywordInfo" class="opoMangeAction"
+			method="modifykeywordInfo">
+			<param name="enableGZIP">true</param>
+			<result type="json">
+			</result>
+		</action>
+		<!--删除最新关键字 zufei -->
+		<action name="DeleteNewkeywords" class="opoMangeAction"
+			method="DeleteNewkeywords">
+			<param name="enableGZIP">true</param>
+			<result type="json">
+			</result>
+		</action>
+		<!--添加最新关键字 zufei -->
+		<action name="addnewkeywordInfo" class="opoMangeAction"
+			method="addnewkeywordInfo">
+			<param name="enableGZIP">true</param>
+			<result type="json">
+			</result>
+		</action>
+		<!--查询报警信息 zufei -->
+		<action name="findAlarmInfo" class="opoMangeAction"
+			method="findAlarmInfo">
+			<param name="enableGZIP">true</param>
+			<result type="json">
+			</result>
+		</action>
+		<!--解除报警信息 zufei -->
+		<action name="modifyAlarmInfo" class="opoMangeAction"
+			method="modifyAlarmInfo">
+			<param name="enableGZIP">true</param>
+			<result type="json">
+			</result>
+		</action>
+		<!--查看查询报警信息 zufei -->
+		<action name="findAlarmLookInfo" class="opoMangeAction"
+			method="findAlarmLookInfo">
+			<param name="enableGZIP">true</param>
+			<result type="json">
+			</result>
+		</action>
+		<!-- yyz分界线######################################start -->
+		
+		<!--查询网址List yyz -->
+		<action name="findNetAddrListFy" class="opoMangeAction"
+			method="findNetAddrListFy">
+			<param name="enableGZIP">true</param>
+			<result type="json">
+			</result>
+		</action>
+		<!--查询单个最新网址 yyz -->
+		<action name="findSingNetAddr" class="opoMangeAction"
+			method="findSingNetAddr">
+			<param name="enableGZIP">true</param>
+			<result type="json">
+			</result>
+		</action>
+			
+		<!--增加单个最新网址 yyz -->
+		<action name="save_netAddrInfo" class="opoMangeAction"
+			method="save_netAddrInfo">
+			<param name="enableGZIP">true</param>
+			<result type="json">
+			</result>
+		</action>	
+		<!--修改单个最新网址 yyz -->
+		<action name="modify_netAddr" class="opoMangeAction"
+			method="modify_netAddr">
+			<param name="enableGZIP">true</param>
+			<result type="json">
+			</result>
+		</action>
+		<!--删除最新网址 yyz -->
+		<action name="deleteNetAddrOne" class="opoMangeAction"
+			method="deleteNetAddrOne">
+			<param name="enableGZIP">true</param>
+			<result type="json">
+			</result>
+		</action>
+		
+		
+<!-- yyz分界线######################################end -->
+	</package>
+
+
+</struts>    
